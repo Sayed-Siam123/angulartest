@@ -1,0 +1,13 @@
+<p>
+  home works!
+</p>
+
+<ul *ngIf='Users'>
+
+  <li *ngFor='let user of Users'>
+      <p>{{user.name}} {{user.posts}}</p>
+  </li>
+
+</ul>
+
+<button (click)="btnclick()">Click Me</button>
