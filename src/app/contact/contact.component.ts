@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { DataService } from '../data.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -30,10 +31,16 @@ export class ContactComponent implements OnInit {
       this.Success=true;
       console.log(d);
       this.data.postBlog(d);// passing data to data service
+      Swal.fire(
+        'Good job!',
+        'Post Created!',
+        'success'
+      )
 
   }
 
   ngOnInit() {
+    
   }
 
 }

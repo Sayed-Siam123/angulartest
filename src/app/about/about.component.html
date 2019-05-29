@@ -1,3 +1,73 @@
-<p>
-  about works!
-</p>
+<h1>Search and UPdateDelete</h1>
+
+<form [formGroup]="SearchForm" (ngSubmit)="onSearch(SearchForm.value)">
+
+  <h5 *ngIf="Success">Your form is valid!</h5>
+
+  <label>
+    Search: {{SearchForm.get('search_id').value}}
+      <!-- {{SearchForm.get('search_id').value}} works like ngmodel -->
+    <input type="text" formControlName="search_id">
+    <div *ngIf="Submitted && SearchForm.controls.search_id.errors" class="error">
+      <div *ngIf="SearchForm.controls.search_id.errors.required">ID is required, bro.</div>
+    </div>
+  </label>
+
+  <input type="submit" value="Search" class="cta">
+
+  <!-- [routerLink]="['/']" -->
+
+</form>
+
+<div *ngIf="Submitted" class="results">
+  <strong>Name:</strong>
+  <span>{{ Userbyid.name }}</span>
+
+  <strong>Message:</strong> 
+  <span>{{ Userbyid.posts }}</span>
+</div>
+
+
+<br>
+<br>
+<br>
+
+
+<form [formGroup]="UpdateForm" (ngSubmit)="onUpdate(SearchForm.value,UpdateForm.value)">
+
+
+  <h5 *ngIf="SuccessUP">Your form is valid!</h5>
+
+  <label>
+    Name: {{ Userbyid.name }}
+  </label>
+
+  <br>
+
+  <label>
+    Message:
+    <textarea formControlName="message"></textarea>
+    <div *ngIf="SubmittedUP && UpdateForm.controls.message.errors" class="error">
+      <div *ngIf="UpdateForm.controls.message.errors.required">A message is required</div>
+    </div>
+  </label>
+
+  
+
+  <input type="submit" value="Update" class="cta">
+  <br>
+  <br>
+  <br>
+  <input (click)="delete(SearchForm.value)" type="submit" value="Delete" class="cta">
+
+  <!-- [routerLink]="['/']" -->
+
+</form>
+
+<div *ngIf="SubmittedUP" class="results">
+  <!-- <strong>Name:</strong>
+  <span>{{ UpdateForm.controls.name.value }}</span> -->
+
+  <strong>Message:</strong> 
+  <span>{{ UpdateForm.controls.message.value }}</span>
+</div>

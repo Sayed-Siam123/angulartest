@@ -1,0 +1,46 @@
+<h1>Register Form</h1>
+
+<form [formGroup]="RegisterForm" (ngSubmit)="onSubmit(RegisterForm.value)">
+
+  <h5 *ngIf="Success">Your form is valid!</h5>
+
+  <label>
+    Email:
+    <input type="text" formControlName="username" required>
+    <div *ngIf="Submitted && RegisterForm.controls.username.errors" class="error">
+      <div *ngIf="RegisterForm.controls.username.errors.required">Your email is required, bro.</div>
+      <div *ngIf="RegisterForm.controls.username.errors.email">Your email should be valid, bro.</div>
+    </div>
+  </label>
+
+  <label>
+    Password:
+    <input type="password" formControlName="password" required>
+    <div *ngIf="Submitted && RegisterForm.controls.password.errors" class="error">
+      <div *ngIf="RegisterForm.controls.password.errors.required">Password is required</div>
+      <div *ngIf="RegisterForm.controls.password.errors.minlength">Enter more than 3.</div>
+    </div>
+  </label>
+
+  <label>
+      Confirm Password:
+      <input type="password" formControlName="confirm_password" required>
+      <div *ngIf="Submitted && RegisterForm.controls.confirm_password.errors" class="error">
+        <div *ngIf="RegisterForm.controls.confirm_password.errors.required">Confrim Password is required</div>
+        <div *ngIf="RegisterForm.controls.confirm_password.errors.minlength">Enter more than 3.</div>
+      </div>
+    </label>
+
+  <input type="submit" value="Register" class="cta">
+
+  <!-- [routerLink]="['/']" -->
+
+</form>
+
+<div *ngIf="Submitted" class="results">
+  <strong>Name:</strong>
+  <span>{{ RegisterForm.controls.username.value }}</span>
+
+  <strong>Message:</strong> 
+  <span>{{ RegisterForm.controls.password.value }}</span>
+</div>

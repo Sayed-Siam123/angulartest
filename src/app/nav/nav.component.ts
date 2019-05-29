@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  appTitle: String= 'myApp';
+  appTitle: String= 'ANGULAR CURD R&D';
 
   constructor() { }
 
