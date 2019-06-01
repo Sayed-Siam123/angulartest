@@ -18,18 +18,19 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formbuilder: FormBuilder,private data: DataService,private route: Router) { 
     this.RegisterForm = this.formbuilder.group({
-      username: [null, Validators.compose([Validators.required, Validators.email,])],
+      name: [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email,])],
       password: [null,Validators.compose([Validators.required, Validators.minLength(3),])],
       confirm_password: [null,Validators.compose([Validators.required, Validators.minLength(3),])],
     })
   }
 
-  onSubmit(credential){
+  createUser(credential){
     if(this.RegisterForm.valid){
       this.Submitted = true;
       this.Success=true;
       if(credential.password!=credential.confirm_password){
-        credential.username = "";
+        credential.email = "";
         credential.password = "";
         Swal.fire(
           'Error!',
@@ -40,15 +41,13 @@ export class RegisterComponent implements OnInit {
       }
       
       else{
-        Swal.fire(
-          'Good Job!',
-          'Registration Done',
-          'success'
-        )
         this.data.register(credential);
-        credential.username = "";
-        credential.password = "";
-        credential.confirm_password = "";
+        this.RegisterForm.setValue(null,{
+
+        });
+        // credential.email = "";
+        // credential.password = "";
+        // credential.confirm_password = "";
       }
     }
     else{

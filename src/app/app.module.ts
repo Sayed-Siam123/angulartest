@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http'; //http client module
+import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http'; //http client module
 import {ReactiveFormsModule} from '@angular/forms'; //angular form module for form manupulation
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2'; //sweetalert module import
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ng6-toastr-notifications';
-
+import {MyHttpInterceptor} from './my-http-interceptor';
 
 
 //Page component descrived
@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { from } from 'rxjs';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegisterComponent } from './register/register.component';
     ContactComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +38,15 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule, //http import
     ReactiveFormsModule, //form module import
     SweetAlert2Module.forRoot(), //for importing sweetalert Swal
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

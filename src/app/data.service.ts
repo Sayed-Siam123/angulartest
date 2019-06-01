@@ -1,16 +1,23 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import { Router, NavigationEnd } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { globals } from './globals';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
-
-  constructor(private http: HttpClient,private route: Router,private toastr: ToastrManager) { } //HttpClient came from library
+export class DataService{
+  globals=globals;
+  navigationSubscription;
+  token: any;
+  public d;
+  Users: object;
+  constructor(private http: HttpClient,private route: Router,private toastr: ToastrManager) {
+    
+  } //HttpClient came from library 
 
   btnclickfromData(){
 
@@ -65,6 +72,23 @@ export class DataService {
     return this.http.get('https://www.api.cloudhawkit.com/api/posts');
   }
 
+
+
+  getAdminBlog(){
+    return this.http.get('http://localhost:8000/api/admin/posts');
+  }
+  getUserBlog(){
+    return this.http.get('http://localhost:8000/api/user/posts');
+  }
+  getSuperAdminBlog(){
+    return this.http.get('http://localhost:8000/api/super/posts');
+  }
+  getCommonUserBlog(){
+    return this.http.get('http://localhost:8000/api/common/posts');
+  }
+
+
+
   getBlog1(){
     return this.http.get('https://www.api.cloudhawkit.com/api/posts');
   }
@@ -118,15 +142,107 @@ export class DataService {
   }
 
   register(credential){
-    console.log(credential.username);
-    console.log(credential.password);
-    return console.log(credential.confirm_password);
+
+    return this.http.post('http://localhost:8000/api/createUser',{
+        "name" : credential.name,
+        "email": credential.email,
+        "password": credential.password,
+        "confirm_password": credential.confirm_password,
+    })
+    .subscribe(data =>{
+
+      this.toastr.successToastr('Registration Successfull!', 'Success!',{
+        toastTimeout: 3000,
+        animate: 'slideFromBottom',
+      });
+      
+      console.log("POST Request is successful ", data);
+      console.log(credential.name);
+      console.log(credential.email);
+      console.log(credential.password);
+      console.log(credential.confirm_password);
+
+      return window.location.pathname = '/login';
+    	// let myLocation = "/login";
+	    // return location.path('/login');
+
+      //return this.route.navigateByUrl('/login');
+    },
+    error  => {
+    
+      this.toastr.errorToastr(error.error.message, 'Sorry!',{
+        toastTimeout: 3000,
+        animate: 'slideFromBottom',
+      });
+      console.log("Error", error.error.message);
+    
+    });
     // return this.route.navigateByUrl('/');
   }
 
   login(credential){
-    console.log(credential.username);
-    return console.log(credential.password);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer'+ 'dadadadadada' +globals.token,
+      })
+    };
+    
+    return this.http.post('http://localhost:8000/api/login',credential,httpOptions)
+    .subscribe(data =>{
+      
+      this.toastr.successToastr('Login Successful!', 'Success!',{
+        toastTimeout: 5000,
+        animate: null,
+      });
+
+      // this.toastr.successToastr('Login Successful!','Success!');
+
+      // Swal.fire({
+      //   position: 'top-end',
+      //   type: 'success',
+      //   title: 'Login Successful!',
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // })
+
+      localStorage.setItem('token',data.token);
+      localStorage.setItem('id',data.user.id);
+      localStorage.setItem('id_user_roles',data.user.id_user_roles);
+
+      console.log(data);
+      console.log(credential.email);
+      console.log(credential.password);
+      
+      // return this.route.navigateByUrl('/login');
+
+      // this.route.navigated = false;
+      // return this.route.navigate(['/index']);
+
+      return window.location.pathname = 'dashboard';
+    	// let myLocation = "/index";
+	    // return location.path(myLocation);
+
+      //window.location('/index');
+
+
+    },
+    error  => {
+
+      this.toastr.errorToastr(error.error.message, 'Error!',{
+        toastTimeout: 5000,
+        animate: 'slideFromBottom',
+      });
+    
+      console.log("Error", error);
+    
+    });
+
+    // console.log(credential.email);
+
   }
+
+  
 
 }

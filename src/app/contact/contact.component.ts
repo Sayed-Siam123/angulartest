@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import Swal from 'sweetalert2';
+import {globals} from './globals';
 
 
 @Component({
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class ContactComponent implements OnInit {
 
+  globals = globals;
   MessageForm: FormGroup;
   Submitted= false;
   Success= false;
@@ -20,6 +22,7 @@ export class ContactComponent implements OnInit {
       name: [null, Validators.compose([Validators.required, Validators.minLength(4),])],
       message: ['',Validators.required],
     })
+    console.log(globals.id);
   }
 
 
@@ -36,6 +39,7 @@ export class ContactComponent implements OnInit {
         'Post Created!',
         'success'
       )
+      
 
   }
 

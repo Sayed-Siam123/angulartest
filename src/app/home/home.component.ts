@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-
-
+import {globals} from './globals';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +10,21 @@ import { DataService } from '../data.service';
 })
 export class HomeComponent implements OnInit {
 
+  globals= globals;
   Users: object;
   Users1: object; //object creation
 
-  constructor(private data: DataService) { } //DataService came from data.service.ts creation
+  // public id;
+
+  constructor(private data: DataService) {
+  
+   } //DataService came from data.service.ts creation
 
   ngOnInit() {
     this.data.getBlog().subscribe(data => {
         this.Users = data;
+        
+        // this.id = localStorage.getItem('id_user_roles');
         console.log(this.Users);
     })
 

@@ -2,8 +2,9 @@
   home works!
 </p>
 
-<ul *ngIf='Users'>
+{{globals.role}}
 
+<ul *ngIf='Users && globals.role'>
   <li *ngFor='let user of Users'>
       <p>{{user.name}} {{user.posts}}</p>
   </li>

@@ -1,6 +1,8 @@
 <h1>Contact us</h1>
 
-<form [formGroup]="MessageForm" (ngSubmit)="onSubmit(MessageForm.value)">
+{{globals.role}}
+
+<form *ngIf="globals.role" [formGroup]="MessageForm" (ngSubmit)="onSubmit(MessageForm.value)">
 
   <h5 *ngIf="Success">Your form is valid!</h5>
 
@@ -14,7 +16,7 @@
   </label>
 
   <label>
-    Message:
+    Message: 
     <textarea formControlName="message"></textarea>
     <div *ngIf="Submitted && MessageForm.controls.message.errors" class="error">
       <div *ngIf="MessageForm.controls.message.errors.required">A message is required</div>
@@ -27,7 +29,7 @@
 
 </form>
 
-<div *ngIf="Submitted" class="results">
+<div *ngIf="Submitted && globals.role" class="results">
   <strong>Name:</strong>
   <span>{{ MessageForm.controls.name.value }}</span>
 

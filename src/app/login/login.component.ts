@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +15,11 @@ export class LoginComponent implements OnInit {
   LoginForm: FormGroup;
   Submitted= false;
   Success= false;
+  auth_token: any;
 
-  constructor(private formbuilder: FormBuilder,private data: DataService) { 
+  constructor(private formbuilder: FormBuilder,private data: DataService,private route: Router,private toastr: ToastrManager) { 
     this.LoginForm = this.formbuilder.group({
-      username: [null, Validators.compose([Validators.required, Validators.email,])],
+      email: [null, Validators.compose([Validators.required, Validators.email,])],
       password: [null,Validators.compose([Validators.required, Validators.minLength(3),])],
     })
   }
@@ -25,11 +28,6 @@ export class LoginComponent implements OnInit {
     if(this.LoginForm.valid){
         this.Submitted= true;
         this.Success= true;
-        Swal.fire(
-          'Good Job!',
-          'Registration Done',
-          'success'
-        )
         this.data.login(credential);
     }
 

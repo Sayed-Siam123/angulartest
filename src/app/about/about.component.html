@@ -1,9 +1,13 @@
 <h1>Search and UPdateDelete</h1>
 
-<form [formGroup]="SearchForm" (ngSubmit)="onSearch(SearchForm.value)">
+
+
+<form *ngIf="globals.role==0 || globals.role==1" [formGroup]="SearchForm" (ngSubmit)="onSearch(SearchForm.value)">
 
   <h5 *ngIf="Success">Your form is valid!</h5>
 
+  {{globals.role}}
+  
   <label>
     Search: {{SearchForm.get('search_id').value}}
       <!-- {{SearchForm.get('search_id').value}} works like ngmodel -->
@@ -33,7 +37,7 @@
 <br>
 
 
-<form [formGroup]="UpdateForm" (ngSubmit)="onUpdate(SearchForm.value,UpdateForm.value)">
+<form *ngIf="globals.role==0 || globals.role==1" [formGroup]="UpdateForm" (ngSubmit)="onUpdate(SearchForm.value,UpdateForm.value)">
 
 
   <h5 *ngIf="SuccessUP">Your form is valid!</h5>
@@ -64,7 +68,7 @@
 
 </form>
 
-<div *ngIf="SubmittedUP" class="results">
+<div *ngIf="SubmittedUP && globals.role" class="results">
   <!-- <strong>Name:</strong>
   <span>{{ UpdateForm.controls.name.value }}</span> -->
 

@@ -1,15 +1,24 @@
 <h1>Register Form</h1>
 
-<form [formGroup]="RegisterForm" (ngSubmit)="onSubmit(RegisterForm.value)">
+<form [formGroup]="RegisterForm" (ngSubmit)="createUser(RegisterForm.value)">
 
   <h5 *ngIf="Success">Your form is valid!</h5>
 
+  
+  <label>
+    Name:
+    <input type="text" formControlName="name" required>
+    <div *ngIf="Submitted && RegisterForm.controls.name.errors" class="error">
+      <div *ngIf="RegisterForm.controls.name.errors.required">Your email is required, bro.</div>
+    </div>
+   </label>
+
   <label>
     Email:
-    <input type="text" formControlName="username" required>
-    <div *ngIf="Submitted && RegisterForm.controls.username.errors" class="error">
-      <div *ngIf="RegisterForm.controls.username.errors.required">Your email is required, bro.</div>
-      <div *ngIf="RegisterForm.controls.username.errors.email">Your email should be valid, bro.</div>
+    <input type="text" formControlName="email" required>
+    <div *ngIf="Submitted && RegisterForm.controls.email.errors" class="error">
+      <div *ngIf="RegisterForm.controls.email.errors.required">Your email is required, bro.</div>
+      <div *ngIf="RegisterForm.controls.email.errors.email">Your email should be valid, bro.</div>
     </div>
   </label>
 
@@ -39,7 +48,7 @@
 
 <div *ngIf="Submitted" class="results">
   <strong>Name:</strong>
-  <span>{{ RegisterForm.controls.username.value }}</span>
+  <span>{{ RegisterForm.controls.email.value }}</span>
 
   <strong>Message:</strong> 
   <span>{{ RegisterForm.controls.password.value }}</span>

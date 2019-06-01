@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import Swal from 'sweetalert2';
+import {globals} from './globals';
 
 @Component({
   selector: 'app-about',
@@ -10,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class AboutComponent implements OnInit {
 
+  globals = globals;
   Userbyid: object;
   SearchForm: FormGroup;
   UpdateForm: FormGroup;
@@ -27,6 +29,7 @@ export class AboutComponent implements OnInit {
     this.UpdateForm = this.formbuilder.group({
       message: [null, Validators.required],
     })
+    console.log(globals.role);
   }
 
   onSearch(id){

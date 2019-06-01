@@ -6,10 +6,10 @@
 
   <label>
     Email:
-    <input type="text" formControlName="username" required>
-    <div *ngIf="Submitted && LoginForm.controls.username.errors" class="error">
-      <div *ngIf="LoginForm.controls.username.errors.required">Your email is required, bro.</div>
-      <div *ngIf="LoginForm.controls.username.errors.email">Your email should be valid, bro.</div>
+    <input type="text" formControlName="email" required>
+    <div *ngIf="Submitted && LoginForm.controls.email.errors" class="error">
+      <div *ngIf="LoginForm.controls.email.errors.required">Your email is required, bro.</div>
+      <div *ngIf="LoginForm.controls.email.errors.email">Your email should be valid, bro.</div>
     </div>
   </label>
 
@@ -30,7 +30,7 @@
 
 <div *ngIf="Submitted" class="results">
   <strong>Name:</strong>
-  <span>{{ LoginForm.controls.username.value }}</span>
+  <span>{{ LoginForm.controls.email.value }}</span>
 
   <strong>Message:</strong> 
   <span>{{ LoginForm.controls.password.value }}</span>
