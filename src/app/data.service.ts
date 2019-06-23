@@ -206,10 +206,15 @@ export class DataService{
       //   showConfirmButton: false,
       //   timer: 1500
       // })
+      
 
-      localStorage.setItem('token',data.token);
-      localStorage.setItem('id',data.user.id);
-      localStorage.setItem('id_user_roles',data.user.id_user_roles);
+      // localStorage.setItem('token',data.token);
+      // localStorage.setItem('id',data.user.id);             egula r nicher gula same jinish,
+      // localStorage.setItem('id_user_roles',data.user.id_user_roles);  tobe nicher bhabe use kora bhalo
+
+      localStorage.setItem('token',data['token']);
+      localStorage.setItem('id',data['user'].id);
+      localStorage.setItem('id_user_roles',data['user'].id_user_roles);
 
       console.log(data);
       console.log(credential.email);

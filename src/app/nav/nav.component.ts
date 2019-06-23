@@ -20,14 +20,12 @@ export class NavComponent implements OnInit {
       toastTimeout: 3000,
       animate: 'slideFromBottom',
     });
-    localStorage.removeItem("token");
+	  localStorage.removeItem("token");
 	  localStorage.removeItem("id");
 	  localStorage.removeItem("id_user_roles");
-    localStorage.clear();
+      localStorage.clear();
       
       window.location.pathname = '';
-    	let myLocation = "/index";
-      window.location= myLocation;
     
       console.log("paisi");
 

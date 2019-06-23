@@ -3,10 +3,15 @@
 </p>
 
 {{globals.role}}
+<br>
+
+<input type="text" placeholder="Search Here.." name="searchText" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" class="form-control">
+
+{{searchText}}
 
 <ul *ngIf='Users && globals.role'>
-  <li *ngFor='let user of Users'>
-      <p>{{user.name}} {{user.posts}}</p>
+  <li *ngFor='let user of Users | grdFilter:{name: searchText, posts: searchText}; let i=index;'>
+      <p>{{i+1}} {{user.name}} {{user.posts}}</p>
   </li>
 
 </ul>

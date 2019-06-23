@@ -6,7 +6,11 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Injectable()
 export class MyHttpInterceptor implements HttpInterceptor {
+    
+    
     constructor(private toastr: ToastrManager){}
+    
+    
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         
         
@@ -21,8 +25,8 @@ export class MyHttpInterceptor implements HttpInterceptor {
                    
                         req = req.clone({
                             setHeaders: {
-                              Authorization: `Bearerfdfjoisfoijidfjsifdjsoidsijfdisjdfi${token}sadasdadasdasdasdasdasdasdasdasdasdasdasdasdas`,
-                              Accept: `application/json`,
+                              Authorization: `Bearerfdfjoisfoijidfjsifdjsoidsijfdisjdfijsdjqoidasd${token}sadasdadasdasdasdasdasdasdasdasdasdasdasdasdas`,
+                              Accept: `application/x-www-form-urlencoded`,
                               id: id,
                               user_role: id_role
                             }

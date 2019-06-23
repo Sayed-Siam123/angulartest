@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http'; //http client module
-import {ReactiveFormsModule} from '@angular/forms'; //angular form module for form manupulation
+import {ReactiveFormsModule,FormsModule} from '@angular/forms'; //angular form module for form manupulation
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2'; //sweetalert module import
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ng6-toastr-notifications';
@@ -19,6 +19,7 @@ import { from } from 'rxjs';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GrdFilterPipe } from './grd-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
+    GrdFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     HttpClientModule, //http import
     ReactiveFormsModule, //form module import
+    FormsModule,
     SweetAlert2Module.forRoot(), //for importing sweetalert Swal
     ToastrModule.forRoot(),
   ],

@@ -10,6 +10,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  public searchText : string;
   globals= globals;
   Users: object;
   Users1: object; //object creation
