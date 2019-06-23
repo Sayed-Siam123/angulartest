@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpEvent,HttpInterceptor,HttpHandler,HttpRequest,HttpHeaders,HttpResponse,HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable,throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ToastrManager } from 'ng6-toastr-notifications';
 
@@ -36,21 +36,45 @@ export class MyHttpInterceptor implements HttpInterceptor {
                     }
 
                     else {
-                        return next.handle(req).pipe(catchError(err => {
-                            if (err instanceof HttpErrorResponse) {
-                                if (err.status === 403) {
+                
+                    //  previous code for interceptor else part *start*
+                    
+                    //     return next.handle(req).pipe(catchError(err => {
+                    //         if (err instanceof HttpErrorResponse) {
+                    //             if (err.status === 403) {
                                     
-                                    this.toastr.errorToastr('Access Denied!', 'Error',{
-                                        toastTimeout: 3000,
-                                        animate: 'slideFromBottom',
-                                      });
+                    //                 this.toastr.errorToastr('Access Denied!', 'Error',{
+                    //                     toastTimeout: 3000,
+                    //                     animate: 'slideFromBottom',
+                    //                   });
                                     
-                                    window.location.pathname='login';
-                                    console.log('this should print your error!');
-                                }
-                            }
-                    }));
+                    //                 window.location.pathname='login';
+                    //                 //console.log('this should print your error!');
+                    //             }
+                    //         }
+                    // }));
+
+                    // previous code for interceptor else part *end*
+                    
+                    
+                    // Updated code for interceptor else part *start*
+
+                    return next.handle(req).pipe(
+                        catchError((error: HttpErrorResponse) => {
+                          if (error.status === 403) {
+                            this.toastr.errorToastr('Access Denied!', 'Error',{
+                                     toastTimeout: 3000,
+                                      animate: 'slideFromBottom',
+                                });     
+                          }
+                          window.location.pathname='login';
+                          return throwError(error);
+                        })
+                      );
+
                 }
+
+                   // Updated code for interceptor else part *end*
             
         }
     }
